@@ -1,0 +1,41 @@
+﻿<Window x:Class="UserData.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UserData"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        MaxHeight="800" MaxWidth="1000"
+        MinHeight="500" MinWidth="700"
+        >
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="12*"/>
+        </Grid.ColumnDefinitions>
+
+
+        
+        <Image x:Name="imgAddBanner" Source="images\AddBanners\Banner.png" Grid.Column="0" Grid.Row="1" Height="200pt" Width="150pt" HorizontalAlignment="Left"/>
+        <TextBlock x:Name="lbBanner" Text="$$$$ ЗДЕСЬ МОГЛА БЫТЬ ВАША РЕКЛАМА"  Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource LableBanners}"/>
+
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" >
+            <Image x:Name="imgLogo" Source="images\logo\logo.png" Grid.Column="0" Grid.Row="0" Height="90pt" Width="90pt" />
+            <TextBlock x:Name="lbMainHeader" Text="КРИЧАЩИЙ ЗАГОЛОВОК" VerticalAlignment="Center" Style="{StaticResource LableMainHeader}"/>
+        </StackPanel>
+
+
+        <Frame x:Name="mainFrame" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+
+
+    </Grid>
+</Window>

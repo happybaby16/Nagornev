@@ -1,0 +1,27 @@
+﻿<Application x:Class="UserData.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:UserData"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style TargetType="TextBlock" x:Key="LableBanners">
+            <Setter Property="Background" Value="Gold"/>
+            <Setter Property="FontSize" Value="20pt"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="LableMainHeader">
+            <Setter Property="FontFamily" Value="Mistral"/>
+            <Setter Property="FontSize" Value="30pt"/>
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="FontSize" Value="10pt"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="FontSize" Value="10pt"/>
+            <Setter Property="Height" Value="20pt"/>
+        </Style>
+    </Application.Resources>
+</Application>
