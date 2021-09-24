@@ -9,7 +9,7 @@
       Title="pageInfoUser">
 
     <Grid>
-        <ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
 
             <GroupBox Header="Считывание информации" >
