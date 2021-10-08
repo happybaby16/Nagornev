@@ -15,19 +15,19 @@
             <GroupBox Header="Считывание информации" >
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <GroupBox Header="Имя">
-                        <Label x:Name="lbName" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                        <Label x:Name="lbName" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.name}"></Label>
                     </GroupBox>
 
                     <GroupBox Header="Дата рождения">
-                        <Label x:Name="lbBirthDate" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                        <Label x:Name="lbBirthDate" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.dr}"></Label>
                     </GroupBox>
 
                     <GroupBox Header="Пол">
-                        <Label x:Name="lbGender" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                            <Label x:Name="lbGender" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.genders.gender}"></Label>
                     </GroupBox>
 
                     <GroupBox Header="Дополнительная информация" Height="50pt">
-                        <Label x:Name="lbInfo" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                            <Label x:Name="lbInfo" HorizontalAlignment="Left" VerticalAlignment="Center" ></Label>
                     </GroupBox>
                 </StackPanel>
             </GroupBox>

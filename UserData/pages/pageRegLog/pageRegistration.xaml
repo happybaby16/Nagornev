@@ -21,7 +21,7 @@
                         <TextBox x:Name="txtLogin" Height="20pt"></TextBox>
                     </GroupBox>
                     <GroupBox Header="Введите пароль" >
-                        <TextBox x:Name="txtPassword" Height="20pt"></TextBox>
+                        <PasswordBox x:Name="txtPassword" Height="20pt"></PasswordBox>
                     </GroupBox>
                     <GroupBox Header="Введите имя" >
                         <TextBox x:Name="txtName" Height="20pt"></TextBox>
@@ -43,8 +43,8 @@
                     <GroupBox Header="Доп. инфо">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <CheckBox x:Name="goodCB" Height="15pt">Добрый</CheckBox>
-                            <CheckBox x:Name="otzCB" Height="15pt">Отзывчивый</CheckBox>
-                            <CheckBox x:Name="scromCB" Height="15pt">Скромный</CheckBox>
+                            <CheckBox x:Name="nejnCB" Height="15pt">Нежный</CheckBox>
+                            <CheckBox x:Name="laskovCB" Height="15pt">Ласковый</CheckBox>
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>

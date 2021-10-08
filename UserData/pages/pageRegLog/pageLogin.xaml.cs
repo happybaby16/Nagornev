@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UserData.adminPages;
 
 namespace UserData.pages.pageRegLog
 {
@@ -32,7 +33,26 @@ namespace UserData.pages.pageRegLog
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            User.mainFrame.Navigate(new pageInfoUser());
+            auth currentUser = DB.DataBase.auth.FirstOrDefault(x => x.login == txtLogin.Text && x.password == txtPassword.Password);
+            if (currentUser != null)
+            {
+                MessageBox.Show($"Добро пожаловать, {currentUser.login}!");
+                DB.currentUser = currentUser;
+                if (DB.currentUser.role == 1)
+                {
+                    User.mainFrame.Navigate(new pageAdminMenu());
+                }
+                else if (DB.currentUser.role == 2)
+                {
+                    User.mainFrame.Navigate(new pageInfoUser());
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Неверно введен логин или пароль!");
+            }
+            
         }
     }
 }

@@ -16,7 +16,7 @@
                         <TextBox x:Name="txtLogin" Width="200pt" FontSize="10pt" />
                     </GroupBox>
                     <GroupBox Header="Введите пароль" FontSize="10pt">
-                        <TextBox x:Name="txtPassword" Width="200pt" FontSize="10pt"/>
+                        <PasswordBox x:Name="txtPassword" Width="200pt" FontSize="10pt"/>
                     </GroupBox>
                 </StackPanel>
             </GroupBox>

@@ -20,9 +20,20 @@ namespace UserData.pages
     /// </summary>
     public partial class pageInfoUser : Page
     {
+        public void DataLoad()
+        {
+            DataContext = DB.currentUser;
+            List<users_to_traits> traits = DB.DataBase.users_to_traits.Where(x => x.id_user == DB.currentUser.id).ToList();
+            foreach (users_to_traits tr in traits)
+            {
+                lbInfo.Content = lbInfo.Content + tr.traits.trait + "; ";
+            }
+        }
         public pageInfoUser()
         {
             InitializeComponent();
+            DataLoad();
         }
+
     }
 }

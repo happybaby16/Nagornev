@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ee7eb78cab42484fb122e106537688ef" Name="Diagram1">
+        <EntityTypeShape EntityType="WPF_test_41PModel.auth" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_test_41PModel.genders" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_test_41PModel.roles" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_test_41PModel.traits" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_test_41PModel.users" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPF_test_41PModel.users_to_traits" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="WPF_test_41PModel.FK_auth_roles" ManuallyRouted="false" />
+        <AssociationConnector Association="WPF_test_41PModel.FK_users_auth" ManuallyRouted="false" />
+        <AssociationConnector Association="WPF_test_41PModel.FK_users_genders" ManuallyRouted="false" />
+        <AssociationConnector Association="WPF_test_41PModel.FK_users_to_traits_traits" ManuallyRouted="false" />
+        <AssociationConnector Association="WPF_test_41PModel.FK_users_to_traits_users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

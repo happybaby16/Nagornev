@@ -21,6 +21,11 @@ namespace UserData
     {
         public static Frame mainFrame;
     }
+    public static class DB
+    {
+        public static Entities DataBase;
+        public static auth currentUser;
+    }
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -31,6 +36,7 @@ namespace UserData
             InitializeComponent();
             User.mainFrame = mainFrame;
             mainFrame.Navigate(new pageLogin());
+            DB.DataBase = new Entities();
         }
     }
 }
