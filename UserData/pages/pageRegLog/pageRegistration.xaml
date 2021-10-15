@@ -15,32 +15,28 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
 
-            <GroupBox  Header="Введите данные о себе" VerticalAlignment="Center"  >
+                <GroupBox  Header="Введите данные о себе" VerticalAlignment="Center"  Template="{StaticResource newGB}">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
-                    <GroupBox Header="Введите логин" >
+                    <GroupBox Header="Введите логин" Template="{StaticResource newGB}">
                         <TextBox x:Name="txtLogin" Height="20pt"></TextBox>
                     </GroupBox>
-                    <GroupBox Header="Введите пароль" >
+                    <GroupBox Header="Введите пароль" Template="{StaticResource newGB}">
                         <PasswordBox x:Name="txtPassword" Height="20pt"></PasswordBox>
                     </GroupBox>
-                    <GroupBox Header="Введите имя" >
+                    <GroupBox Header="Введите имя" Template="{StaticResource newGB}">
                         <TextBox x:Name="txtName" Height="20pt"></TextBox>
                     </GroupBox>
 
-                    <GroupBox Header="Введите дату рождения"  Height="40pt">
+                    <GroupBox Header="Введите дату рождения" Template="{StaticResource newGB}">
                         <DatePicker x:Name="dateBirth" Height="20pt"></DatePicker>
                     </GroupBox>
 
 
-                    <GroupBox Header="Выберете пол"  Height="70pt">
-                        <ListBox  x:Name="genderListBox" VerticalAlignment="Center" >
-                            <ListBoxItem x:Name="genderM" Height="15pt">Мужской</ListBoxItem>
-                            <ListBoxItem x:Name="genderW" Height="15pt">Женский</ListBoxItem>
-                            <ListBoxItem x:Name="genderO" Height="15pt">Свой вариант</ListBoxItem>
-                        </ListBox>
+                    <GroupBox Header="Выберете пол"  Template="{StaticResource newGB}">
+                            <ListBox  x:Name="genderListBox" VerticalAlignment="Center" ></ListBox>
                     </GroupBox>
 
-                    <GroupBox Header="Доп. инфо">
+                    <GroupBox Header="Доп. инфо" Template="{StaticResource newGB}">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <CheckBox x:Name="goodCB" Height="15pt">Добрый</CheckBox>
                             <CheckBox x:Name="nejnCB" Height="15pt">Нежный</CheckBox>
@@ -49,7 +45,8 @@
                     </GroupBox>
                 </StackPanel>
             </GroupBox>
-            <Button x:Name="saveButton" Content="Записать" Click="btnSendUser"></Button>
+                <Button x:Name="saveButton" Content="Записать" Click="btnSendUser" IsDefault="True" Template="{StaticResource templateButton}"></Button>
+                <Button x:Name="btnCancel" Content="Назад" Click="btnCancel_Click" IsCancel="True" Template="{StaticResource templateButton}"></Button>
             </StackPanel>
         </ScrollViewer>
     </Grid>

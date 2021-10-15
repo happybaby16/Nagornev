@@ -23,6 +23,9 @@ namespace UserData.pages.pageRegLog
         public pageRegistration()
         {
             InitializeComponent();
+            genderListBox.ItemsSource = DB.DataBase.genders.ToList();
+            genderListBox.SelectedValuePath = "id";
+            genderListBox.DisplayMemberPath = "gender";
         }
 
         private void btnSendUser(object sender, RoutedEventArgs e)
@@ -44,7 +47,7 @@ namespace UserData.pages.pageRegLog
                         data.id = newUser.id;
                         data.name = txtName.Text;
                         data.dr = dateBirth.SelectedDate.Value;
-                        data.gender = genderListBox.SelectedIndex + 1;
+                        data.gender = (int)genderListBox.SelectedValue;
                         DB.DataBase.users.Add(data);
                         if (goodCB.IsChecked == true)
                         {
@@ -84,6 +87,11 @@ namespace UserData.pages.pageRegLog
             }
 
 
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            User.mainFrame.GoBack();
         }
     }
 }

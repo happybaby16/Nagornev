@@ -9,14 +9,20 @@
       Title="pageAdminMenu">
 
     <Grid>
-        <DataGrid x:Name="usersData" AutoGenerateColumns="False" ColumnWidth="*" Background="White">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Логин" Binding="{Binding Path=login}"/>
-                <DataGridTextColumn Header="Пароль" Binding="{Binding Path=password}"/>
-                <DataGridTextColumn Header="Имя" Binding="{Binding Path=users.name}"/>
-                <DataGridTextColumn Header="Роль" Binding="{Binding Path=roles.role}"/>
-                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=users.dr}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                <DataGrid x:Name="usersData" AutoGenerateColumns="False" ColumnWidth="*" Background="White">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Логин" Binding="{Binding Path=login}"/>
+                        <DataGridTextColumn Header="Пароль" Binding="{Binding Path=password}"/>
+                        <DataGridTextColumn Header="Имя" Binding="{Binding Path=users.name}"/>
+                        <DataGridTextColumn Header="Роль" Binding="{Binding Path=roles.role}"/>
+                        <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=users.dr}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button x:Name="btnEditUser" Content="Изменить выбранного пользователя" Click="btnEditUser_Click" Template="{StaticResource templateButton}"/>
+                <Button x:Name="btnDeleteUser" Content="Удалить выбранного пользователя" Click="btnDeleteUser_Click" Template="{StaticResource templateButton}"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

@@ -14,14 +14,39 @@
             <Setter Property="FontSize" Value="30pt"/>
         </Style>
 
-        <Style TargetType="GroupBox">
-            <Setter Property="FontSize" Value="10pt"/>
-        </Style>
 
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="AliceBlue"/>
-            <Setter Property="FontSize" Value="10pt"/>
-            <Setter Property="Height" Value="20pt"/>
-        </Style>
+
+        <ControlTemplate x:Key="newGB" TargetType="GroupBox">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" BorderThickness="1" BorderBrush="#4d95ec" Background="#4d95ec" >
+                    <Label Foreground="White" >
+                        <ContentControl Content="{TemplateBinding Header}"/>
+                    </Label>
+                </Border>
+
+                <Border Grid.Row="1" BorderThickness="1,0,1,1" BorderBrush="#4d95ec">
+                    <ContentPresenter Margin="3" />
+                </Border>
+            </Grid>
+        </ControlTemplate>
+
+
+
+
+        <ControlTemplate x:Key="templateButton" TargetType="Button">
+            <Border BorderThickness="0" Background="#4d95ec" CornerRadius="10"  x:Name="BorderButton" Margin="1">
+                <ContentControl Content="{TemplateBinding Content}" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="BorderButton" Property="Background" Value="#69b3fc"></Setter>
+                </Trigger>
+                
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Application.Resources>
 </Application>

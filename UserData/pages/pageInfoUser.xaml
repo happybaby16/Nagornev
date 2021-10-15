@@ -12,21 +12,21 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
 
-            <GroupBox Header="Считывание информации" >
+            <GroupBox Header="Считывание информации" Template="{StaticResource newGB}">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <GroupBox Header="Имя">
+                    <GroupBox Header="Имя" Template="{StaticResource newGB}">
                         <Label x:Name="lbName" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.name}"></Label>
                     </GroupBox>
 
-                    <GroupBox Header="Дата рождения">
+                    <GroupBox Header="Дата рождения" Template="{StaticResource newGB}">
                         <Label x:Name="lbBirthDate" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.dr}"></Label>
                     </GroupBox>
 
-                    <GroupBox Header="Пол">
+                    <GroupBox Header="Пол" Template="{StaticResource newGB}">
                             <Label x:Name="lbGender" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.genders.gender}"></Label>
                     </GroupBox>
 
-                    <GroupBox Header="Дополнительная информация" Height="50pt">
+                    <GroupBox Header="Дополнительная информация" Template="{StaticResource newGB}">
                             <Label x:Name="lbInfo" HorizontalAlignment="Left" VerticalAlignment="Center" ></Label>
                     </GroupBox>
                 </StackPanel>

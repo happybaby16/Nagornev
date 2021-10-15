@@ -10,18 +10,18 @@
 
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <GroupBox Header="Введите данные авторизации" FontSize="10pt">
+            <GroupBox Header="Введите данные авторизации" FontSize="10pt" Template="{StaticResource newGB}">
                 <StackPanel Orientation="Vertical">
-                    <GroupBox Header="Введите логин" FontSize="10pt">
+                    <GroupBox Header="Введите логин" FontSize="10pt" Template="{StaticResource newGB}">
                         <TextBox x:Name="txtLogin" Width="200pt" FontSize="10pt" />
                     </GroupBox>
-                    <GroupBox Header="Введите пароль" FontSize="10pt">
+                    <GroupBox Header="Введите пароль" FontSize="10pt" Template="{StaticResource newGB}">
                         <PasswordBox x:Name="txtPassword" Width="200pt" FontSize="10pt"/>
                     </GroupBox>
                 </StackPanel>
             </GroupBox>
-            <Button x:Name="btnLogin" Content="Авторизоваться" Click="btnLogin_Click"/>
-            <Button x:Name="btnReg" Content="Зарегистрироваться" Click="btnReg_Click"/>
+            <Button x:Name="btnLogin" Content="Авторизоваться" Click="btnLogin_Click" IsDefault="True" Template="{StaticResource templateButton}"/>
+            <Button x:Name="btnReg" Content="Зарегистрироваться" Click="btnReg_Click" Template="{StaticResource templateButton}"/>
         </StackPanel>
     </Grid>
 </Page>
