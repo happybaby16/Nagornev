@@ -68,5 +68,10 @@ namespace UserData.adminPages
         {
             listBoxInfoUsers.ItemsSource = DB.DataBase.auth.ToList();
         }
+
+        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        {
+            User.mainFrame.Navigate(new pageAdminEditUsersData(new auth()));
+        }
     }
 }

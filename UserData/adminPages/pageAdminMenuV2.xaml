@@ -39,8 +39,7 @@
     <Grid>
         <ScrollViewer>
             <StackPanel Orientation="Vertical">
-                <Button x:Name="btnDeleteUser" Content="Удалить выбранного пользователя" Template="{StaticResource templateButton}" Click="btnDeleteUser_Click" />
-
+                <Button x:Name="btnAddUser" Content="Добавить пользователя" Template="{StaticResource templateButton}" Click="btnAddUser_Click" />
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*"/>
@@ -60,6 +59,7 @@
                     <Button x:Name="btnSelect" Content="Выбрать" Template="{StaticResource templateButton}" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Click="btnSelect_Click"/>
                     <Button x:Name="btnReset" Content="Сбросить" Template="{StaticResource templateButton}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Click="btnReset_Click"/>
                 </Grid>
+                <Button x:Name="btnDeleteUser" Content="Удалить выбранного пользователя" Template="{StaticResource templateButton}" Click="btnDeleteUser_Click" />
                 <ListBox x:Name="listBoxInfoUsers" ItemTemplate="{StaticResource templateUserInfo}" />
             </StackPanel>
                 

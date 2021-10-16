@@ -30,43 +30,53 @@ namespace UserData.adminPages
 
 
             this.SelectedUser = SelectedUSer;
-
-            txtLogin.Text = SelectedUser.login;
-            try
+            if (SelectedUser.login != null)
             {
-                if (SelectedUser.users != null)
+                txtLogin.Text = SelectedUser.login;
+                try
                 {
-                    txtName.Text = SelectedUser.users.name;
-                    dateBirth.SelectedDate = SelectedUser.users.dr;
-                    genderListBox.SelectedIndex = SelectedUser.users.gender - 1;
-                    List<users_to_traits> trs = SelectedUser.users.users_to_traits.ToList();
-                    foreach (users_to_traits tr in trs)
+                    if (SelectedUser.users != null)
                     {
-                        string trName = DB.DataBase.traits.FirstOrDefault(x => x.id == tr.id_trait).trait;
-                        if ((string)goodCB.Content == trName)
+                        txtName.Text = SelectedUser.users.name;
+                        dateBirth.SelectedDate = SelectedUser.users.dr;
+                        genderListBox.SelectedIndex = SelectedUser.users.gender - 1;
+                        List<users_to_traits> trs = SelectedUser.users.users_to_traits.ToList();
+                        foreach (users_to_traits tr in trs)
                         {
-                            goodCB.IsChecked = true;
-                        }
-                        if ((string)nejnCB.Content == trName)
-                        {
-                            nejnCB.IsChecked = true;
-                        }
-                        if ((string)laskovCB.Content == trName)
-                        {
-                            laskovCB.IsChecked = true;
-                        }
+                            string trName = DB.DataBase.traits.FirstOrDefault(x => x.id == tr.id_trait).trait;
+                            if ((string)goodCB.Content == trName)
+                            {
+                                goodCB.IsChecked = true;
+                            }
+                            if ((string)nejnCB.Content == trName)
+                            {
+                                nejnCB.IsChecked = true;
+                            }
+                            if ((string)laskovCB.Content == trName)
+                            {
+                                laskovCB.IsChecked = true;
+                            }
 
+                        }
                     }
-                }
 
-            }
-            catch (NullReferenceException ex)
-            {
+                }
+                catch (NullReferenceException ex)
+                {
+                }
             }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (SelectedUser.login == null)
+            {
+                SelectedUser.login = txtLogin.Text;
+                SelectedUser.password = txtPassword.Password;
+                SelectedUser.role = 2;
+                DB.DataBase.auth.Add(SelectedUser);
+                DB.DataBase.SaveChanges();
+            }
             string password;
             if (txtLogin.Text != "" && DB.DataBase.auth.FirstOrDefault(x => x.login == txtLogin.Text) == null || txtLogin.Text==SelectedUser.login)
             {

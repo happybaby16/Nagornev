@@ -20,6 +20,7 @@ namespace UserData
     public static class User
     {
         public static Frame mainFrame;
+        public static MainWindow mainWindow;
     }
     public static class DB
     {
@@ -35,8 +36,10 @@ namespace UserData
         {
             InitializeComponent();
             User.mainFrame = mainFrame;
+            User.mainWindow = this;
             mainFrame.Navigate(new pageLogin());
             DB.DataBase = new Entities();
+            
         }
     }
 }

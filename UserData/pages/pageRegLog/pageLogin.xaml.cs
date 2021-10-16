@@ -41,6 +41,8 @@ namespace UserData.pages.pageRegLog
                 if (DB.currentUser.role == 1)
                 {
                     User.mainFrame.Navigate(new pageAdminMenuV2());
+                    User.mainWindow.imgAddBanner.Visibility = Visibility.Hidden;
+                    User.mainWindow.lbBanner.Visibility = Visibility.Hidden;
                 }
                 else if (DB.currentUser.role == 2)
                 {
