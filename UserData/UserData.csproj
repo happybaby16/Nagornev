@@ -70,6 +70,9 @@
     <Compile Include="adminPages\pageAdminMenu.xaml.cs">
       <DependentUpon>pageAdminMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="adminPages\pageAdminMenuV2.xaml.cs">
+      <DependentUpon>pageAdminMenuV2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="auth.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -98,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="adminPages\pageAdminMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="adminPages\pageAdminMenuV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

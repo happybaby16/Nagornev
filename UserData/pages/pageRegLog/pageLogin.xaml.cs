@@ -40,7 +40,7 @@ namespace UserData.pages.pageRegLog
                 DB.currentUser = currentUser;
                 if (DB.currentUser.role == 1)
                 {
-                    User.mainFrame.Navigate(new pageAdminMenu());
+                    User.mainFrame.Navigate(new pageAdminMenuV2());
                 }
                 else if (DB.currentUser.role == 2)
                 {

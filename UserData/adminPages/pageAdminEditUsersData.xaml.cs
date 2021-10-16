@@ -32,26 +32,36 @@ namespace UserData.adminPages
             this.SelectedUser = SelectedUSer;
 
             txtLogin.Text = SelectedUser.login;
-            txtName.Text = SelectedUser.users.name;
-            dateBirth.SelectedDate = SelectedUser.users.dr;
-            genderListBox.SelectedIndex = SelectedUser.users.gender-1;
-            List<users_to_traits> trs = SelectedUser.users.users_to_traits.ToList();
-            foreach (users_to_traits tr in trs)
+            try
             {
-                string trName = DB.DataBase.traits.FirstOrDefault(x => x.id == tr.id_trait).trait;
-                if ((string)goodCB.Content == trName)
+                if (SelectedUser.users != null)
                 {
-                    goodCB.IsChecked = true;
-                }
-                if ((string)nejnCB.Content == trName)
-                {
-                    nejnCB.IsChecked = true;
-                }
-                if ((string)laskovCB.Content == trName)
-                {
-                    laskovCB.IsChecked = true;
+                    txtName.Text = SelectedUser.users.name;
+                    dateBirth.SelectedDate = SelectedUser.users.dr;
+                    genderListBox.SelectedIndex = SelectedUser.users.gender - 1;
+                    List<users_to_traits> trs = SelectedUser.users.users_to_traits.ToList();
+                    foreach (users_to_traits tr in trs)
+                    {
+                        string trName = DB.DataBase.traits.FirstOrDefault(x => x.id == tr.id_trait).trait;
+                        if ((string)goodCB.Content == trName)
+                        {
+                            goodCB.IsChecked = true;
+                        }
+                        if ((string)nejnCB.Content == trName)
+                        {
+                            nejnCB.IsChecked = true;
+                        }
+                        if ((string)laskovCB.Content == trName)
+                        {
+                            laskovCB.IsChecked = true;
+                        }
+
+                    }
                 }
 
+            }
+            catch (NullReferenceException ex)
+            {
             }
         }
 
@@ -74,9 +84,25 @@ namespace UserData.adminPages
                     //Изменение данных выбранного пользователя
                     SelectedUser.login = txtLogin.Text;
                     SelectedUser.password = txtPassword.Password;
-                    SelectedUser.users.name = txtName.Text;
-                    SelectedUser.users.dr = (DateTime)dateBirth.SelectedDate;
-                    SelectedUser.users.gender = (int)genderListBox.SelectedValue;
+                    
+                    //Если запись раньше отсутствовала, содаётся новая и заносится в базу данных
+                    if (SelectedUser.users == null)
+                    {
+                        users newData = new users();
+                        newData.id = Convert.ToInt32(SelectedUser.id);
+                        newData.name = txtName.Text;
+                        newData.dr = (DateTime)dateBirth.SelectedDate;
+                        newData.gender = (int)genderListBox.SelectedValue;
+                        DB.DataBase.users.Add(newData);
+                        DB.DataBase.SaveChanges();
+                    }
+                    else
+                    {
+                        SelectedUser.users.name = txtName.Text;
+                        SelectedUser.users.dr = (DateTime)dateBirth.SelectedDate;
+                        SelectedUser.users.gender = (int)genderListBox.SelectedValue;
+                    }
+                    
                    
 
                     //Вставка изменённых качеств
