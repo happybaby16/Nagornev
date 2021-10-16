@@ -43,6 +43,7 @@ namespace UserData.pages.pageRegLog
                     User.mainFrame.Navigate(new pageAdminMenuV2());
                     User.mainWindow.imgAddBanner.Visibility = Visibility.Hidden;
                     User.mainWindow.lbBanner.Visibility = Visibility.Hidden;
+                    User.mainWindow.mainGrid.ColumnDefinitions.RemoveAt(0);
                 }
                 else if (DB.currentUser.role == 2)
                 {
