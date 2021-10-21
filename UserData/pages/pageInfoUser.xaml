@@ -29,7 +29,8 @@
                     <GroupBox Header="Дополнительная информация" Template="{StaticResource newGB}">
                             <Label x:Name="lbInfo" HorizontalAlignment="Left" VerticalAlignment="Center" ></Label>
                     </GroupBox>
-                </StackPanel>
+                        <Button x:Name="btnBack" Content="Назад" Click="btnBack_Click" Template="{StaticResource templateButton}"/>
+                    </StackPanel>
             </GroupBox>
             
         </StackPanel>

@@ -35,5 +35,9 @@ namespace UserData.pages
             DataLoad();
         }
 
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            User.mainFrame.GoBack();
+        }
     }
 }

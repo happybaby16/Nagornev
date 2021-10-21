@@ -47,21 +47,35 @@ namespace UserData.adminPages
 
         private void btnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите удалить пользователя из системы?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            try
             {
-                auth SelectedUser = (auth)listBoxInfoUsers.SelectedItem;
-                DB.DataBase.auth.Remove(SelectedUser);
-                DB.DataBase.SaveChanges();
-                MessageBox.Show("Пользователь успешно удалён!");
-                listBoxInfoUsers.ItemsSource = DB.DataBase.auth.ToList();
+                MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите удалить пользователя из системы?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    auth SelectedUser = (auth)listBoxInfoUsers.SelectedItem;
+                    DB.DataBase.auth.Remove(SelectedUser);
+                    DB.DataBase.SaveChanges();
+                    MessageBox.Show("Пользователь успешно удалён!");
+                    listBoxInfoUsers.ItemsSource = DB.DataBase.auth.ToList();
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка при удалении пользователя! Убедитесь, что Вы выбрали пользователя системы, затем повторите попытку.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
-            List<auth> SelectedUsers = Userdata.Skip(Convert.ToInt32(txtOT.Text)-1).Take(Convert.ToInt32(txtDO.Text)+1 - Convert.ToInt32(txtOT.Text)).ToList();
-            listBoxInfoUsers.ItemsSource = SelectedUsers;
+            try
+            {
+                List<auth> SelectedUsers = Userdata.Skip(Convert.ToInt32(txtOT.Text) - 1).Take(Convert.ToInt32(txtDO.Text) + 1 - Convert.ToInt32(txtOT.Text)).ToList();
+                listBoxInfoUsers.ItemsSource = SelectedUsers;
+            }
+            catch
+            {
+                MessageBox.Show("Введите интервал выбора пользователей!", "Информация.", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
