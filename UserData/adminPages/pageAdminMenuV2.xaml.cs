@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Library;
 
 namespace UserData.adminPages
 {
@@ -26,6 +27,15 @@ namespace UserData.adminPages
             InitializeComponent();
             Userdata = DB.DataBase.auth.ToList();
             listBoxInfoUsers.ItemsSource = Userdata;
+            List<DateTime> dateBirth = new List<DateTime>();
+            foreach (auth user in Userdata)
+            {
+                if (user.users != null)
+                {
+                    dateBirth.Add(user.users.dr);
+                }
+            }
+            Console.WriteLine($"Среднее количество лет: {Func.AgeAVG(dateBirth)}");
         }
 
         private void ListBox_Loaded(object sender, RoutedEventArgs e)
