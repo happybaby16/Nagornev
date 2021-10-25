@@ -43,23 +43,54 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="15*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="от"  Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Center"></Label>
-        <Label Content="до"  Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Center"></Label>
+        <Label Content="от"  Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+        <Label Content="до"  Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
 
-        <TextBox x:Name="txtOT"  Grid.Column="1" Grid.Row="0" />
-        <TextBox x:Name="txtDO"  Grid.Column="1" Grid.Row="1"/>
+        <TextBox x:Name="txtOT" Height="20pt" Grid.Column="1" Grid.Row="0" TextChanged="Filter"/>
+        <TextBox x:Name="txtDO" Height="20pt" Grid.Column="1" Grid.Row="1" TextChanged="Filter"/>
 
-        <Button x:Name="btnSelect" Content="Выбрать" Template="{StaticResource templateButton}" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Click="btnSelect_Click"/>
-        <Button x:Name="btnReset" Content="Сбросить" Template="{StaticResource templateButton}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Click="btnReset_Click"/>
-        <Button x:Name="btnAddUser" Content="Добавить пользователя" Template="{StaticResource templateButton}" Click="btnAddUser_Click" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="3" />
-        <Button x:Name="btnDeleteUser" Content="Удалить выбранного пользователя" Template="{StaticResource templateButton}" Click="btnDeleteUser_Click" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Grid.ColumnSpan="3"/>
-        <ListBox x:Name="listBoxInfoUsers" ItemTemplate="{StaticResource templateUserInfo}" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"></ListBox>
-        
+        <Label  Content="Пол"  Grid.Column="2" Grid.Row="0" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center"></Label>
+        <Label  Content="Имя"  Grid.Column="2" Grid.Row="1" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center"></Label>
+
+
+        <ComboBox Name="txtSearchGender" Height="20pt" Grid.Column="3" Grid.Row="0" HorizontalContentAlignment="Center" SelectionChanged="Filter"></ComboBox>
+        <TextBox Name="txtSearchLine" Height="20pt"  Grid.Column="3" Grid.Row="1" TextChanged="Filter"></TextBox>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Страница: " ></TextBlock>
+                <TextBlock x:Name="txtCurrentPage" Text="..." Foreground="Blue"></TextBlock>
+                <TextBlock Text=" из "></TextBlock>
+                <TextBlock x:Name="txtAllPages" Text="..."></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="btn_PreviousPage" Text="←" Margin="10,0,10,0" Uid="Previous" MouseDown="Pagination"></TextBlock>
+                <TextBlock x:Name="txtCurrentPageNavigation" Text="..." Foreground="Blue"></TextBlock>
+                <TextBlock x:Name="btn_NextPage" Text="→" Margin="10,0,10,0" Uid="Next" MouseDown="Pagination"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Перейти на страницу:" Margin="10,0,10,0"></TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox x:Name="txtGoToPage" Width="20pt"></TextBox>
+                    <TextBlock x:Name="btn_GoToPage" Text="Перейти" Margin="10,0,10,0" Foreground="Blue" MouseDown="btn_GoToPage_MouseDown"></TextBlock>
+                </StackPanel>
+                
+            </StackPanel>
+            
+        </StackPanel>
+        <Button x:Name="btnReset" Content="Сбросить" Template="{StaticResource templateButton}" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Click="btnReset_Click"/>
+        <Button x:Name="btnAddUser" Content="Добавить пользователя" Template="{StaticResource templateButton}" Click="btnAddUser_Click" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="5" />
+        <Button x:Name="btnDeleteUser" Content="Удалить выбранного пользователя" Template="{StaticResource templateButton}" Click="btnDeleteUser_Click" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Grid.ColumnSpan="5"/>
+        <ListBox x:Name="listBoxInfoUsers" ItemTemplate="{StaticResource templateUserInfo}" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5"></ListBox>
+        <TextBlock x:Name="txtAgeAVG" Text="Среднее количество леТ: " Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="8"></TextBlock>
     </Grid>
 </Page>

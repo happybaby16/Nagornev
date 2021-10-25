@@ -44,6 +44,7 @@ namespace UserData.pages.pageRegLog
                     User.mainWindow.imgAddBanner.Visibility = Visibility.Hidden;
                     User.mainWindow.lbBanner.Visibility = Visibility.Hidden;
                     User.mainWindow.mainGrid.ColumnDefinitions.RemoveAt(0);
+                    User.mainWindow.mainGrid.RowDefinitions.RemoveAt(2);
                 }
                 else if (DB.currentUser.role == 2)
                 {
