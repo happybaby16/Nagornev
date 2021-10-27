@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,7 +34,10 @@ namespace UserData.pages.pageRegLog
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            auth currentUser = DB.DataBase.auth.FirstOrDefault(x => x.login == txtLogin.Text && x.password == txtPassword.Password);
+            SHA256 mySHA256 = SHA256.Create();
+            byte[] passwordByte = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(txtPassword.Password));
+            string passwordHash = Convert.ToBase64String(passwordByte);
+            auth currentUser = DB.DataBase.auth.FirstOrDefault(x => x.login == txtLogin.Text && x.password == passwordHash);
             if (currentUser != null)
             {
                 MessageBox.Show($"Добро пожаловать, {currentUser.login}!");

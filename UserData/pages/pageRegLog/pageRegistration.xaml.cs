@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Security.Cryptography;
+
 
 namespace UserData.pages.pageRegLog
 {
@@ -34,8 +36,10 @@ namespace UserData.pages.pageRegLog
             {
                 if (txtLogin.Text != "" && txtPassword.Password != "")
                 {
-
-                    auth newUser = new auth { login = txtLogin.Text, password = txtPassword.Password, role = 2 };
+                    SHA256 mySHA256 = SHA256.Create();
+                    byte[] passwordByte = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(txtPassword.Password));
+                    string passwordHash = Convert.ToBase64String(passwordByte);
+                    auth newUser = new auth { login = txtLogin.Text, password = passwordHash, role = 2 };
                     DB.DataBase.auth.Add(newUser);
                     DB.DataBase.SaveChanges();
                     if (txtName.Text != "" &&
@@ -81,9 +85,13 @@ namespace UserData.pages.pageRegLog
                     MessageBox.Show("Заполните обязательные поля: \"Логин\", \"Пароль\" для регистрации в системе!");
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("Произошла неизвестная ошибка. Повторите попытку позже!", "Ошибка");
+                MessageBox.Show($"Произошла неизвестная ошибка. Повторите попытку позже!", "Ошибка");
+                foreach (var ddd in ex.Data)
+                {
+                    Console.WriteLine(ddd.ToString());
+                }
             }
 
 
