@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:UserData.adminPages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="pageAdminMenuV2">
+      Title="pageAdminMenuV2"
+      Loaded="Page_Loaded">
 
 
     <Page.Resources>
@@ -64,29 +65,22 @@
 
         <ComboBox Name="txtSearchGender" Height="20pt" Grid.Column="3" Grid.Row="0" HorizontalContentAlignment="Center" SelectionChanged="Filter"></ComboBox>
         <TextBox Name="txtSearchLine" Height="20pt"  Grid.Column="3" Grid.Row="1" TextChanged="Filter"></TextBox>
-
-        <StackPanel Orientation="Horizontal" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Страница: " ></TextBlock>
-                <TextBlock x:Name="txtCurrentPage" Text="..." Foreground="Blue"></TextBlock>
-                <TextBlock Text=" из "></TextBlock>
-                <TextBlock x:Name="txtAllPages" Text="..."></TextBlock>
+        <StackPanel Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Name="txtPrev" Uid="prev" Text=" Пред. " MouseDown="GoPage_MouseDown"/>
+                <TextBlock Name="txt1" Uid="1" Text="{Binding  Path = NPage[0], StringFormat={}{0,3}}" Visibility="{Binding Visible[0]}" FontWeight="{Binding Bold[0]}" MouseDown="GoPage_MouseDown"/>
+                <TextBlock Name="txt2" Uid="2" Text="{Binding  Path = NPage[1], StringFormat={}{0,3}}" Visibility="{Binding Visible[1]}" FontWeight="{Binding Bold[1]}" MouseDown="GoPage_MouseDown"/>
+                <TextBlock Name="txt3" Uid="3" Text="{Binding  Path = NPage[2], StringFormat={}{0,3}}" Visibility="{Binding Visible[2]}" FontWeight="{Binding Bold[2]}" MouseDown="GoPage_MouseDown"/>
+                <TextBlock Name="txt4" Uid="4" Text="{Binding  Path = NPage[3], StringFormat={}{0,3}}" Visibility="{Binding Visible[3]}" FontWeight="{Binding Bold[3]}" MouseDown="GoPage_MouseDown"/>
+                <TextBlock Name="txt5" Uid="5" Text="{Binding  Path = NPage[4], StringFormat={}{0,3}}" Visibility="{Binding Visible[4]}" FontWeight="{Binding Bold[4]}" MouseDown="GoPage_MouseDown"/>
+                <TextBlock Name="txtNext" Uid="next" Text=" След." MouseDown="GoPage_MouseDown"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="btn_PreviousPage" Text="←" Margin="10,0,10,0" Uid="Previous" MouseDown="Pagination"></TextBlock>
-                <TextBlock x:Name="txtCurrentPageNavigation" Text="..." Foreground="Blue"></TextBlock>
-                <TextBlock x:Name="btn_NextPage" Text="→" Margin="10,0,10,0" Uid="Next" MouseDown="Pagination"></TextBlock>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Текущая страница: "/>
+                <TextBlock Name="txtCurrentPage" Text="{Binding Path=CurrentPage}"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Перейти на страницу:" Margin="10,0,10,0"></TextBlock>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBox x:Name="txtGoToPage" Width="20pt"></TextBox>
-                    <TextBlock x:Name="btn_GoToPage" Text="Перейти" Margin="10,0,10,0" Foreground="Blue" MouseDown="btn_GoToPage_MouseDown"></TextBlock>
-                </StackPanel>
-                
-            </StackPanel>
-            
         </StackPanel>
+
         <Button x:Name="btnReset" Content="Сбросить" Template="{StaticResource templateButton}" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Click="btnReset_Click"/>
         <Button x:Name="btnAddUser" Content="Добавить пользователя" Template="{StaticResource templateButton}" Click="btnAddUser_Click" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="5" />
         <Button x:Name="btnDeleteUser" Content="Удалить выбранного пользователя" Template="{StaticResource templateButton}" Click="btnDeleteUser_Click" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Grid.ColumnSpan="5"/>

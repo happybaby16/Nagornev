@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Library;
 
 namespace UserData.adminPages
@@ -25,9 +17,9 @@ namespace UserData.adminPages
 
         public List<auth> Userdata;
         List<auth> FilterListUsers;
-        int currentPage = 0;
-        double countInPage = 2;
-        int countAllPages = 0;
+        int countInPage = 2;
+
+        PageChange pc = new PageChange();
 
 
         public pageAdminMenuV2()
@@ -43,11 +35,9 @@ namespace UserData.adminPages
 
             txtAgeAVG.Text = $"Среднее количество лет всех пользователей системы: {Math.Round(AgeAVG(FilterListUsers), 2)}";
 
-
-
-            countAllPages = (int)Math.Ceiling(Convert.ToDouble(FilterListUsers.Count / countInPage)); //Определение количества страниц
-            txtAllPages.Text = Convert.ToString(countAllPages);
-            Pagination("Previous");//Создание пагинирующей страницы
+            DataContext = pc;//поместил объект в ресурсы страницы
+            pc.CountPage = countInPage;
+            pc.Countlist = FilterListUsers.Count;
         }
 
 
@@ -122,8 +112,6 @@ namespace UserData.adminPages
             FilterListUsers = DB.DataBase.auth.ToList();
             txtOT.Text = "";
             txtDO.Text = "";
-            currentPage = 0;
-            Pagination("Previous");
         }
 
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
@@ -183,101 +171,50 @@ namespace UserData.adminPages
             }
 
 
-            
-            
-            currentPage = 0; //Установка первой страницы для обновлённого списка
-            double pages = Convert.ToDouble(FilterListUsers.Count / countInPage);
-            countAllPages = (int)Math.Ceiling(pages); ;//Определяем количество страниц у обновлённого списка
-            txtAllPages.Text = Convert.ToString(countAllPages);
-            Pagination("Previous"); //Переход на первую страницу и её отображение
+            pc.Countlist = FilterListUsers.Count;
+
+            UpdatePages();
+
         }
 
-   
-        private void Pagination(string Uid)
+
+
+        private void GoPage_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            switch (Uid)
+            TextBlock tb = (TextBlock)sender;//определяем, какой текстовый блок был нажат           
+            //изменение номера страници при нажатии на кнопку
+            switch (tb.Uid)
             {
-                case "Next":
-                    if (currentPage >= countAllPages - 1)
-                    {
-                        currentPage = countAllPages - 1;
-                    }
-                    else
-                    {
-                        currentPage++;
-                    }
+                case "prev":
+                    pc.CurrentPage--;
                     break;
-                case "Previous":
-                    if (currentPage <= 0)
-                    {
-                        currentPage = 0;
-                    }
-                    else
-                    {
-                        currentPage--;
-                    }
+                case "next":
+                    pc.CurrentPage++;
+                    break;
+                default:
+                    pc.CurrentPage = Convert.ToInt32(tb.Text);
                     break;
             }
-            List<auth> SelectedUsers = FilterListUsers.Skip((int)countInPage * currentPage).Take((int)countInPage).ToList();
-            listBoxInfoUsers.ItemsSource = SelectedUsers;
-            txtCurrentPage.Text = Convert.ToString(currentPage + 1);
-            txtCurrentPageNavigation.Text = Convert.ToString(currentPage + 1);
+
+
+            //определение списка
+            listBoxInfoUsers.ItemsSource = FilterListUsers.Skip(pc.CurrentPage * pc.CountPage - pc.CountPage).Take(pc.CountPage).ToList();
         }
 
-        private void Pagination(object sender, MouseButtonEventArgs e)
+        private void UpdatePages()
         {
-            TextBlock ob = (TextBlock)sender;
-            switch (ob.Uid)
-            {
-                case "Next":
-                    if (currentPage == countAllPages - 1)
-                    {
-                        currentPage = countAllPages - 1;
-                    }
-                    else
-                    {
-                        currentPage++;
-                    }
-                    break;
-                case "Previous":
-                    if (currentPage == 0)
-                    {
-                        currentPage = 0;
-                    }
-                    else
-                    {
-                        currentPage--;
-                    }
-                    break;
-            }
-            List<auth> SelectedUsers = FilterListUsers.Skip((int)countInPage * currentPage).Take((int)countInPage).ToList();
-            listBoxInfoUsers.ItemsSource = SelectedUsers;
-            txtCurrentPage.Text = Convert.ToString(currentPage + 1);
-            txtCurrentPageNavigation.Text = Convert.ToString(currentPage + 1);
+            pc.CurrentPage = 1;
+            listBoxInfoUsers.ItemsSource = FilterListUsers.Skip(pc.CurrentPage * pc.CountPage - pc.CountPage).Take(pc.CountPage).ToList();
         }
 
-        private void btn_GoToPage_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (txtGoToPage.Text != "")
-                {
-                    currentPage = Convert.ToInt32(txtGoToPage.Text)-2;
-                    if (currentPage > 0)
-                    {
-                        Pagination("Next");
-                    }
-                    else
-                    {
-                        Pagination("Previous");
-                    }
-                    
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Введены некорректные данные", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            UpdatePages();
         }
+
+
+
+
+
     }
 }
