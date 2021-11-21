@@ -32,6 +32,8 @@
                     <GroupBox Header="Дополнительная информация" Template="{StaticResource newGB}">
                         <ListBox Loaded="ListBox_Loaded" Uid="{Binding Path=id}"></ListBox>
                     </GroupBox>
+                    <Image x:Name="UserImage" Loaded="UserImage_Loaded" Uid="{Binding id}"/>
+                    <Button x:Name="BtmAddImage" Content="Загрузить/изменить изображение пользователя" Click="BtmAddImage_Click" Uid="{Binding id}"/>
                 </StackPanel>
             </GroupBox>
         </DataTemplate>
@@ -39,18 +41,18 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="15*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
         <Label Content="от"  Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>

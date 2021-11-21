@@ -6,8 +6,6 @@
         xmlns:local="clr-namespace:UserData"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        MaxHeight="800" MaxWidth="1000"
-        MinHeight="500" MinWidth="700"
         >
     
     <Grid x:Name="mainGrid">

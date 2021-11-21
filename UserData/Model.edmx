@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище WPF_test_41PModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище WPF_test_41PModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="auth">
           <Key>
             <PropertyRef Name="id" />
@@ -51,6 +51,16 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_user" Type="int" Nullable="false" />
           <Property Name="id_trait" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usersimage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="path" Type="nvarchar(max)" />
+          <Property Name="image" Type="varbinary(max)" />
+          <Property Name="avatar" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_auth_roles">
           <End Role="roles" Type="Self.roles" Multiplicity="1" />
@@ -116,6 +126,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_usersimage_users">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="usersimage" Type="Self.usersimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usersimage">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище WPF_test_41PModelContainer">
           <EntitySet Name="auth" EntityType="Self.auth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="genders" EntityType="Self.genders" Schema="dbo" store:Type="Tables" />
@@ -123,6 +147,7 @@
           <EntitySet Name="traits" EntityType="Self.traits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users_to_traits" EntityType="Self.users_to_traits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usersimage" EntityType="Self.usersimage" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_auth_roles" Association="Self.FK_auth_roles">
             <End Role="roles" EntitySet="roles" />
             <End Role="auth" EntitySet="auth" />
@@ -143,85 +168,63 @@
             <End Role="users" EntitySet="users" />
             <End Role="users_to_traits" EntitySet="users_to_traits" />
           </AssociationSet>
+          <AssociationSet Name="FK_usersimage_users" Association="Self.FK_usersimage_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="usersimage" EntitySet="usersimage" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WPF_test_41PModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="auth" EntityType="WPF_test_41PModel.auth" />
-          <EntitySet Name="genders" EntityType="WPF_test_41PModel.genders" />
-          <EntitySet Name="roles" EntityType="WPF_test_41PModel.roles" />
-          <EntitySet Name="traits" EntityType="WPF_test_41PModel.traits" />
-          <EntitySet Name="users" EntityType="WPF_test_41PModel.users" />
-          <EntitySet Name="users_to_traits" EntityType="WPF_test_41PModel.users_to_traits" />
-          <AssociationSet Name="FK_auth_roles" Association="WPF_test_41PModel.FK_auth_roles">
-            <End Role="roles" EntitySet="roles" />
-            <End Role="auth" EntitySet="auth" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_auth" Association="WPF_test_41PModel.FK_users_auth">
-            <End Role="auth" EntitySet="auth" />
-            <End Role="users" EntitySet="users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_genders" Association="WPF_test_41PModel.FK_users_genders">
-            <End Role="genders" EntitySet="genders" />
-            <End Role="users" EntitySet="users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_to_traits_traits" Association="WPF_test_41PModel.FK_users_to_traits_traits">
-            <End Role="traits" EntitySet="traits" />
-            <End Role="users_to_traits" EntitySet="users_to_traits" />
-          </AssociationSet>
-          <AssociationSet Name="FK_users_to_traits_users" Association="WPF_test_41PModel.FK_users_to_traits_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="users_to_traits" EntitySet="users_to_traits" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="auth">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="login" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="login" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="role" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="roles" Relationship="WPF_test_41PModel.FK_auth_roles" FromRole="auth" ToRole="roles" />
-          <NavigationProperty Name="users" Relationship="WPF_test_41PModel.FK_users_auth" FromRole="auth" ToRole="users" />
+          <NavigationProperty Name="roles" Relationship="Self.FK_auth_roles" FromRole="auth" ToRole="roles" />
+          <NavigationProperty Name="users" Relationship="Self.FK_users_auth" FromRole="auth" ToRole="users" />
         </EntityType>
         <EntityType Name="genders">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="users" Relationship="WPF_test_41PModel.FK_users_genders" FromRole="genders" ToRole="users" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.FK_users_genders" FromRole="genders" ToRole="users" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="role" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="auth" Relationship="WPF_test_41PModel.FK_auth_roles" FromRole="roles" ToRole="auth" />
+          <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="auth" Relationship="Self.FK_auth_roles" FromRole="roles" ToRole="auth" />
         </EntityType>
         <EntityType Name="traits">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="trait" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="users_to_traits" Relationship="WPF_test_41PModel.FK_users_to_traits_traits" FromRole="traits" ToRole="users_to_traits" />
+          <Property Name="trait" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="users_to_traits" Relationship="Self.FK_users_to_traits_traits" FromRole="traits" ToRole="users_to_traits" />
         </EntityType>
         <EntityType Name="users">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="dr" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="gender" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="auth" Relationship="WPF_test_41PModel.FK_users_auth" FromRole="users" ToRole="auth" />
-          <NavigationProperty Name="genders" Relationship="WPF_test_41PModel.FK_users_genders" FromRole="users" ToRole="genders" />
-          <NavigationProperty Name="users_to_traits" Relationship="WPF_test_41PModel.FK_users_to_traits_users" FromRole="users" ToRole="users_to_traits" />
+          <NavigationProperty Name="auth" Relationship="Self.FK_users_auth" FromRole="users" ToRole="auth" />
+          <NavigationProperty Name="genders" Relationship="Self.FK_users_genders" FromRole="users" ToRole="genders" />
+          <NavigationProperty Name="users_to_traits" Relationship="Self.FK_users_to_traits_users" FromRole="users" ToRole="users_to_traits" />
+          <NavigationProperty Name="usersimage" Relationship="Self.FK_usersimage_users" FromRole="users" ToRole="usersimage" />
         </EntityType>
         <EntityType Name="users_to_traits">
           <Key>
@@ -230,12 +233,23 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_user" Type="Int32" Nullable="false" />
           <Property Name="id_trait" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="traits" Relationship="WPF_test_41PModel.FK_users_to_traits_traits" FromRole="users_to_traits" ToRole="traits" />
-          <NavigationProperty Name="users" Relationship="WPF_test_41PModel.FK_users_to_traits_users" FromRole="users_to_traits" ToRole="users" />
+          <NavigationProperty Name="traits" Relationship="Self.FK_users_to_traits_traits" FromRole="users_to_traits" ToRole="traits" />
+          <NavigationProperty Name="users" Relationship="Self.FK_users_to_traits_users" FromRole="users_to_traits" ToRole="users" />
+        </EntityType>
+        <EntityType Name="usersimage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="avatar" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.FK_usersimage_users" FromRole="usersimage" ToRole="users" />
         </EntityType>
         <Association Name="FK_auth_roles">
-          <End Type="WPF_test_41PModel.roles" Role="roles" Multiplicity="1" />
-          <End Type="WPF_test_41PModel.auth" Role="auth" Multiplicity="*" />
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="auth" Type="Self.auth" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="roles">
               <PropertyRef Name="id" />
@@ -246,10 +260,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_users_auth">
-          <End Type="WPF_test_41PModel.auth" Role="auth" Multiplicity="1">
+          <End Role="auth" Type="Self.auth" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="WPF_test_41PModel.users" Role="users" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="auth">
               <PropertyRef Name="id" />
@@ -260,8 +274,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_users_genders">
-          <End Type="WPF_test_41PModel.genders" Role="genders" Multiplicity="1" />
-          <End Type="WPF_test_41PModel.users" Role="users" Multiplicity="*" />
+          <End Role="genders" Type="Self.genders" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="genders">
               <PropertyRef Name="id" />
@@ -272,8 +286,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_users_to_traits_traits">
-          <End Type="WPF_test_41PModel.traits" Role="traits" Multiplicity="1" />
-          <End Type="WPF_test_41PModel.users_to_traits" Role="users_to_traits" Multiplicity="*" />
+          <End Role="traits" Type="Self.traits" Multiplicity="1" />
+          <End Role="users_to_traits" Type="Self.users_to_traits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="traits">
               <PropertyRef Name="id" />
@@ -284,10 +298,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_users_to_traits_users">
-          <End Type="WPF_test_41PModel.users" Role="users" Multiplicity="1">
+          <End Role="users" Type="Self.users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="WPF_test_41PModel.users_to_traits" Role="users_to_traits" Multiplicity="*" />
+          <End Role="users_to_traits" Type="Self.users_to_traits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="id" />
@@ -297,6 +311,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_usersimage_users">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="usersimage" Type="Self.usersimage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usersimage">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="auth" EntityType="Self.auth" />
+          <EntitySet Name="genders" EntityType="Self.genders" />
+          <EntitySet Name="roles" EntityType="Self.roles" />
+          <EntitySet Name="traits" EntityType="Self.traits" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="users_to_traits" EntityType="Self.users_to_traits" />
+          <EntitySet Name="usersimage" EntityType="Self.usersimage" />
+          <AssociationSet Name="FK_auth_roles" Association="Self.FK_auth_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="auth" EntitySet="auth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_auth" Association="Self.FK_users_auth">
+            <End Role="auth" EntitySet="auth" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_genders" Association="Self.FK_users_genders">
+            <End Role="genders" EntitySet="genders" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_to_traits_traits" Association="Self.FK_users_to_traits_traits">
+            <End Role="traits" EntitySet="traits" />
+            <End Role="users_to_traits" EntitySet="users_to_traits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_to_traits_users" Association="Self.FK_users_to_traits_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="users_to_traits" EntitySet="users_to_traits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usersimage_users" Association="Self.FK_usersimage_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="usersimage" EntitySet="usersimage" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -306,53 +367,64 @@
           <EntitySetMapping Name="auth">
             <EntityTypeMapping TypeName="WPF_test_41PModel.auth">
               <MappingFragment StoreEntitySet="auth">
-                <ScalarProperty Name="role" ColumnName="role" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="login" ColumnName="login" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="genders">
             <EntityTypeMapping TypeName="WPF_test_41PModel.genders">
               <MappingFragment StoreEntitySet="genders">
-                <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="roles">
             <EntityTypeMapping TypeName="WPF_test_41PModel.roles">
               <MappingFragment StoreEntitySet="roles">
-                <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="role" ColumnName="role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="traits">
             <EntityTypeMapping TypeName="WPF_test_41PModel.traits">
               <MappingFragment StoreEntitySet="traits">
-                <ScalarProperty Name="trait" ColumnName="trait" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="trait" ColumnName="trait" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="WPF_test_41PModel.users">
               <MappingFragment StoreEntitySet="users">
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="dr" ColumnName="dr" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="dr" ColumnName="dr" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users_to_traits">
             <EntityTypeMapping TypeName="WPF_test_41PModel.users_to_traits">
               <MappingFragment StoreEntitySet="users_to_traits">
-                <ScalarProperty Name="id_trait" ColumnName="id_trait" />
-                <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id_trait" ColumnName="id_trait" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usersimage">
+            <EntityTypeMapping TypeName="WPF_test_41PModel.usersimage">
+              <MappingFragment StoreEntitySet="usersimage">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

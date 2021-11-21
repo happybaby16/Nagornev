@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using Library;
+using Microsoft.Win32;
 
 namespace UserData.adminPages
 {
@@ -18,7 +22,6 @@ namespace UserData.adminPages
         public List<auth> Userdata;
         List<auth> FilterListUsers;
         int countInPage = 2;
-
         PageChange pc = new PageChange();
 
 
@@ -169,20 +172,15 @@ namespace UserData.adminPages
                     MessageBox.Show("Введите интервал выбора пользователей!", "Информация.", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-
-
             pc.Countlist = FilterListUsers.Count;
-
             UpdatePages();
-
         }
 
 
 
         private void GoPage_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            TextBlock tb = (TextBlock)sender;//определяем, какой текстовый блок был нажат           
-            //изменение номера страници при нажатии на кнопку
+            TextBlock tb = (TextBlock)sender;   
             switch (tb.Uid)
             {
                 case "prev":
@@ -195,9 +193,6 @@ namespace UserData.adminPages
                     pc.CurrentPage = Convert.ToInt32(tb.Text);
                     break;
             }
-
-
-            //определение списка
             listBoxInfoUsers.ItemsSource = FilterListUsers.Skip(pc.CurrentPage * pc.CountPage - pc.CountPage).Take(pc.CountPage).ToList();
         }
 
@@ -212,9 +207,71 @@ namespace UserData.adminPages
             UpdatePages();
         }
 
+        private void UserImage_Loaded(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.Image IMG = sender as System.Windows.Controls.Image;
+            int ind = Convert.ToInt32(IMG.Uid);
+            users U = DB.DataBase.users.FirstOrDefault(x => x.id == ind);//запись о текущем пользователе
+            usersimage UI = DB.DataBase.usersimage.FirstOrDefault(x => x.id_user == ind);//получаем запись о картинке для текущего пользователя
+            BitmapImage BI = new BitmapImage();
+            if (U != null)
+            {
+                if (UI != null)//если для текущего пользователя существует запись о его катринке
+                {
+                    if (UI.path != null)//если присутствует путь к картинке
+                    {
+                        BI = new BitmapImage(new Uri(UI.path, UriKind.Relative));
+                    }
+                    else//если присутствуют двоичные данные
+                    {
+                        BI.BeginInit();
+                        BI.StreamSource = new MemoryStream(UI.image);
+                        BI.EndInit();
+                    }
+                }
+                else
+                {
+                    switch (U.gender)
+                    {
+                        case 1:
+                            BI = new BitmapImage(new Uri(@"/images/male.png", UriKind.Relative));
+                            break;
+                        case 2:
+                            BI = new BitmapImage(new Uri(@"/images/female.png", UriKind.Relative));
+                            break;
+                        default:
+                            BI = new BitmapImage(new Uri(@"/images/other.png", UriKind.Relative));
+                            break;
+                    }
+                }
+                IMG.Height = 100;
+                IMG.Width = 100;
+                IMG.Source = BI;
+            }
+        }
 
-
-
-
+        private void BtmAddImage_Click(object sender, RoutedEventArgs e)
+        {
+            Button BTN = (Button)sender;
+            int ind = Convert.ToInt32(BTN.Uid);
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".jpg";
+            openFileDialog.Filter = "Изображения |*.jpg;*.png"; 
+            var result = openFileDialog.ShowDialog();
+            if (result == true)//если файл выбран
+            {
+                System.Drawing.Image UserImage = System.Drawing.Image.FromFile(openFileDialog.FileName);
+                ImageConverter IC = new ImageConverter();
+                byte[] ByteArr = (byte[])IC.ConvertTo(UserImage, typeof(byte[]));
+                usersimage UI = new usersimage() { id_user = ind, image = ByteArr };
+                DB.DataBase.usersimage.Add(UI);
+                DB.DataBase.SaveChanges();
+                MessageBox.Show("Картинка пользователя добавлена в базу");
+            }
+            else
+            {
+                MessageBox.Show("Операция выбора изображения отменена");
+            }
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace UserData
         public users()
         {
             this.users_to_traits = new HashSet<users_to_traits>();
+            this.usersimage = new HashSet<usersimage>();
         }
     
         public int id { get; set; }
@@ -29,5 +30,7 @@ namespace UserData
         public virtual genders genders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<users_to_traits> users_to_traits { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<usersimage> usersimage { get; set; }
     }
 }
