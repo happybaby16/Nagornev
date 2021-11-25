@@ -14,26 +14,37 @@
         <DataTemplate x:Key="templateUserInfo">
             <GroupBox Header="Информация о пользователе" Uid="{Binding Path=id}" MouseDoubleClick="GroupBox_MouseDoubleClick" HorizontalContentAlignment="Stretch">
                 <StackPanel Orientation="Vertical">
-                    <GroupBox Header="Логин" Template="{StaticResource newGB}">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=login}"></Label>
-                    </GroupBox>
-                    <GroupBox Header="Пароль" Template="{StaticResource newGB}">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=password}"></Label>
-                    </GroupBox>
-                    <GroupBox Header="Имя" Template="{StaticResource newGB}">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.name}"></Label>
-                    </GroupBox>
-                    <GroupBox Header="Дата рождения" Template="{StaticResource newGB}">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.dr}"></Label>
-                    </GroupBox>
-                    <GroupBox Header="Пол" Template="{StaticResource newGB}">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.genders.gender}"></Label>
-                    </GroupBox>
-                    <GroupBox Header="Дополнительная информация" Template="{StaticResource newGB}">
-                        <ListBox Loaded="ListBox_Loaded" Uid="{Binding Path=id}"></ListBox>
-                    </GroupBox>
-                    <Image x:Name="UserImage" Loaded="UserImage_Loaded" Uid="{Binding id}"/>
-                    <Button x:Name="BtmAddImage" Content="Загрузить/изменить изображение пользователя" Click="BtmAddImage_Click" Uid="{Binding id}"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <GroupBox Header="Логин" Template="{StaticResource newGB}" Width="150pt">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=login}"></Label>
+                        </GroupBox>
+                        <GroupBox Header="Пароль" Template="{StaticResource newGB}" Width="150pt">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=password}"></Label>
+                        </GroupBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                        <GroupBox Header="Имя" Template="{StaticResource newGB}" Width="150pt">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.name}"></Label>
+                        </GroupBox>
+                        <GroupBox Header="Дата рождения" Template="{StaticResource newGB}" Width="150pt">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Path=users.dr}"></Label>
+                        </GroupBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <GroupBox Header="Пол" Template="{StaticResource newGB}" Width="150pt">
+                            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding Path=users.genders.gender}" ></Label>
+                        </GroupBox>
+                        <GroupBox Header="Дополнительная информация" Template="{StaticResource newGB}" Width="150pt">
+                            <ListBox Loaded="ListBox_Loaded" Uid="{Binding Path=id}"></ListBox>
+                        </GroupBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                        <Image x:Name="UserImage" Loaded="UserImage_Loaded" Uid="{Binding id}"/>
+                        <Button x:Name="btnGoToGallery" Content="Посмотреть галлерею" Uid="{Binding id}" Click="btnGoToGallery_Click" Template="{StaticResource templateButton}" Loaded="btnGoToGallery_Loaded"/>
+                        <Button x:Name="BtmAddImage" Content="Загрузить/изменить изображение пользователя" Click="BtmAddImage_Click" Uid="{Binding id}" Template="{StaticResource templateButton}"/>
+                    </StackPanel>
+                    
+                    
                 </StackPanel>
             </GroupBox>
         </DataTemplate>

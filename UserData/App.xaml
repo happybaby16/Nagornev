@@ -39,7 +39,7 @@
 
         <ControlTemplate x:Key="templateButton" TargetType="Button">
             <Border BorderThickness="0" Background="#4d95ec" CornerRadius="10"  x:Name="BorderButton" Margin="1">
-                <ContentControl Content="{TemplateBinding Content}" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+                <ContentControl Content="{TemplateBinding Content}" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">

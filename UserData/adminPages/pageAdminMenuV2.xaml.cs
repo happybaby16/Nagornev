@@ -212,21 +212,29 @@ namespace UserData.adminPages
             System.Windows.Controls.Image IMG = sender as System.Windows.Controls.Image;
             int ind = Convert.ToInt32(IMG.Uid);
             users U = DB.DataBase.users.FirstOrDefault(x => x.id == ind);//запись о текущем пользователе
-            usersimage UI = DB.DataBase.usersimage.FirstOrDefault(x => x.id_user == ind);//получаем запись о картинке для текущего пользователя
+            List<usersimage> UI = DB.DataBase.usersimage.Where(x => x.id_user == ind).ToList();//получаем запись о картинке для текущего пользователя
+            UI.Reverse();
             BitmapImage BI = new BitmapImage();
             if (U != null)
             {
-                if (UI != null)//если для текущего пользователя существует запись о его катринке
+                if (UI.Count != 0)//если для текущего пользователя существует запись о его катринке
                 {
-                    if (UI.path != null)//если присутствует путь к картинке
+                    for (int i = 0; i < UI.Count; i++)
                     {
-                        BI = new BitmapImage(new Uri(UI.path, UriKind.Relative));
-                    }
-                    else//если присутствуют двоичные данные
-                    {
-                        BI.BeginInit();
-                        BI.StreamSource = new MemoryStream(UI.image);
-                        BI.EndInit();
+                        if (UI[i].avatar)
+                        { 
+                            if (UI[i].path != null)//если присутствует путь к картинке
+                            {
+                                BI = new BitmapImage(new Uri(UI[i].path, UriKind.Relative));
+                            }
+                            else//если присутствуют двоичные данные
+                            {
+                                BI.BeginInit();
+                                BI.StreamSource = new MemoryStream(UI[i].image);
+                                BI.EndInit();
+                            }
+                            break;
+                        }
                     }
                 }
                 else
@@ -248,6 +256,7 @@ namespace UserData.adminPages
                 IMG.Width = 100;
                 IMG.Source = BI;
             }
+            
         }
 
         private void BtmAddImage_Click(object sender, RoutedEventArgs e)
@@ -264,6 +273,17 @@ namespace UserData.adminPages
                 ImageConverter IC = new ImageConverter();
                 byte[] ByteArr = (byte[])IC.ConvertTo(UserImage, typeof(byte[]));
                 usersimage UI = new usersimage() { id_user = ind, image = ByteArr };
+                MessageBoxResult answer = MessageBox.Show("Вы хотите сделать выбранную фотографию как основной аватар?", "Аватар?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (answer == MessageBoxResult.Yes)
+                {
+                    List<usersimage> UIlist = DB.DataBase.usersimage.Where(x => x.id_user == ind).ToList();
+                    for (int i = 0; i < UIlist.Count; i++)
+                    {
+                        UIlist[i].avatar = false;
+                    }
+                    UI.avatar = true;
+                }
+                else UI.avatar = false;
                 DB.DataBase.usersimage.Add(UI);
                 DB.DataBase.SaveChanges();
                 MessageBox.Show("Картинка пользователя добавлена в базу");
@@ -271,6 +291,32 @@ namespace UserData.adminPages
             else
             {
                 MessageBox.Show("Операция выбора изображения отменена");
+            }
+        }
+
+
+
+
+        private void btnGoToGallery_Click(object sender, RoutedEventArgs e)
+        {
+            Button btnOpenGallery = (Button)sender;
+            int idSelectedUser = Convert.ToInt32(btnOpenGallery.Uid);
+            User.mainFrame.Navigate(new pageAdminGallery(idSelectedUser));
+        }
+
+        /// <summary>
+        /// Функция, которая скрывет галерею пользователя, если у него отсутствуют картинки в базе данных
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnGoToGallery_Loaded(object sender, RoutedEventArgs e)
+        {
+            Button btnSender = (Button)sender;
+            int idLoadedUser = Convert.ToInt32(btnSender.Uid);
+            List<usersimage> UI = DB.DataBase.usersimage.Where(x => x.id_user == idLoadedUser).ToList();
+            if (UI.Count==0)
+            {
+                btnSender.Visibility = Visibility.Hidden;
             }
         }
     }

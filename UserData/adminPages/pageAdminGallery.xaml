@@ -1,0 +1,35 @@
+﻿<Page x:Class="UserData.adminPages.pageAdminGallery"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UserData.adminPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="pageAdminGallery"
+      Loaded="Page_Loaded"
+      >
+      
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="92*"/>
+            <ColumnDefinition Width="587*"/>
+            <ColumnDefinition Width="121*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image x:Name="imgSelectedImg" Grid.Row="0" Grid.Column="1"></Image>
+
+        <Button x:Name="btnNextImg" Content="→" FontSize="20pt" Uid="Next"  Grid.Row="0" Grid.Column="2" Template="{StaticResource templateButton}" VerticalAlignment="Center" Click="GalleryPagination"/>
+        <Button x:Name="btnBackImg" Content="←" FontSize="20pt" Uid="Back"  Grid.Row="0" Grid.Column="0" Template="{StaticResource templateButton}" VerticalAlignment="Center" Click="GalleryPagination"/>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <Button x:Name="btnBack" Content="Назад" FontSize="10pt" Uid="0"   Grid.ColumnSpan="3" Template="{StaticResource templateButton}" Click="btnBack_Click"/>
+            <Button x:Name="btnSetAvatar" Content="Сделать фотографию аватором" Click="btnSetAvatar_Click" Template="{StaticResource templateButton}"/>
+            <Button x:Name="btnRemoveImg" Content="Удалить выбранную фотографию" Click="btnRemoveImg_Click" Template="{StaticResource templateButton}"/>
+        </StackPanel>
+    </Grid>
+</Page>
