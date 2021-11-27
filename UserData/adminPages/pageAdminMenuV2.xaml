@@ -9,10 +9,28 @@
       Title="pageAdminMenuV2"
       Loaded="Page_Loaded">
 
-
+   
     <Page.Resources>
+        <ControlTemplate x:Key="GBBold" TargetType="GroupBox">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" BorderThickness="1" BorderBrush="Red" Background="Red" >
+                    <Label Foreground="White" >
+                        <ContentControl Content="{TemplateBinding Header}"/>
+                    </Label>
+                </Border>
+
+                <Border Grid.Row="1" BorderThickness="1,0,1,1" BorderBrush="Red">
+                    <ContentPresenter Margin="3" />
+                </Border>
+            </Grid>
+        </ControlTemplate>
+
         <DataTemplate x:Key="templateUserInfo">
-            <GroupBox Header="Информация о пользователе" Uid="{Binding Path=id}" MouseDoubleClick="GroupBox_MouseDoubleClick" HorizontalContentAlignment="Stretch">
+            <GroupBox Header="Информация о пользователе" Uid="{Binding Path=id}" MouseDoubleClick="GroupBox_MouseDoubleClick" HorizontalContentAlignment="Stretch" Loaded="GroupBox_Loaded">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <GroupBox Header="Логин" Template="{StaticResource newGB}" Width="150pt">
@@ -99,5 +117,6 @@
         <Button x:Name="btnDeleteUser" Content="Удалить выбранного пользователя" Template="{StaticResource templateButton}" Click="btnDeleteUser_Click" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Grid.ColumnSpan="5"/>
         <ListBox x:Name="listBoxInfoUsers" ItemTemplate="{StaticResource templateUserInfo}" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5"></ListBox>
         <TextBlock x:Name="txtAgeAVG" Text="Среднее количество леТ: " Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="8"></TextBlock>
+      
     </Grid>
 </Page>

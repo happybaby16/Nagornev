@@ -25,6 +25,8 @@ namespace UserData.pages.pageRegLog
         public pageLogin()
         {
             InitializeComponent();
+            txtLogin.Text = "pupsik";
+            txtPassword.Password = "123";
         }
 
         private void btnReg_Click(object sender, RoutedEventArgs e)

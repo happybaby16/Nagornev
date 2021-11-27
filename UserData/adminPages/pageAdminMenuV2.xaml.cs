@@ -319,5 +319,23 @@ namespace UserData.adminPages
                 btnSender.Visibility = Visibility.Hidden;
             }
         }
+
+        private void GroupBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            GroupBox objectSender = (GroupBox)sender;
+            int idLoadedUser = Convert.ToInt32(objectSender.Uid);
+            users loadedUser = DB.DataBase.users.FirstOrDefault(x => x.id == idLoadedUser);
+            if (loadedUser != null)
+            {
+                TimeSpan daysLive = DateTime.Now - loadedUser.dr;
+                if (daysLive.TotalDays > 365)
+                {
+                    ControlTemplate Temp;
+                    Temp = (ControlTemplate)this.FindResource("GBBold");
+                    objectSender.Template = Temp;
+                }
+            }
+          
+        }
     }
 }

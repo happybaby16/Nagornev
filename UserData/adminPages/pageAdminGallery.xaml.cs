@@ -67,8 +67,8 @@ namespace UserData.adminPages
             else currentImg--;
 
             //Проверяем границы пагинации по картинкам
-            if (currentImg >= UI.Count - 1) currentImg = UI.Count - 1;
-            if (currentImg <= 0) currentImg = 0;
+            if (currentImg > UI.Count - 1) currentImg = 0;
+            if (currentImg < 0) currentImg = UI.Count-1;
 
             //Изменяем картинку 
             BitmapImage BI = new BitmapImage();
