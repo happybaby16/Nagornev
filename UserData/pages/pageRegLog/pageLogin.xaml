@@ -8,15 +8,39 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="pageLogin">
 
+    <Page.Resources>
+        <Style x:Key="ImageButtonStyle" TargetType="{x:Type Image}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Width" Value="22" />
+                    
+                    <Setter Property="Height" Value="22" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Height" Value="20" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <GroupBox Header="Введите данные авторизации" FontSize="10pt" Template="{StaticResource newGB}">
                 <StackPanel Orientation="Vertical">
                     <GroupBox Header="Введите логин" FontSize="10pt" Template="{StaticResource newGB}">
-                        <TextBox x:Name="txtLogin" Width="200pt" FontSize="10pt" />
+                        <TextBox x:Name="txtLogin" FontSize="10pt" />
                     </GroupBox>
                     <GroupBox Header="Введите пароль" FontSize="10pt" Template="{StaticResource newGB}">
-                        <PasswordBox x:Name="txtPassword" Width="200pt" FontSize="10pt"/>
+                        <PasswordBox x:Name="txtPassword" FontSize="10pt"/>
+                    </GroupBox>
+                    <GroupBox Header="Введите капчу" FontSize="10pt" Template="{StaticResource newGB}">
+                        <StackPanel>
+                            <DockPanel>
+                                <TextBlock x:Name="txtCaptcha" Text="Капча" Foreground="Red" FontSize="10pt" HorizontalAlignment="Center"></TextBlock>
+                                <Image x:Name="btnRefresh" Source="..\..\icons\refreshIcon.png" MouseDown="btnRefresh_MouseDown"  HorizontalAlignment="Right" Style="{StaticResource ImageButtonStyle}"></Image>
+                            </DockPanel>
+                            <TextBox x:Name="txtAnswerCaptcha" Width="200pt" FontSize="10pt"/>
+                        </StackPanel>
                     </GroupBox>
                 </StackPanel>
             </GroupBox>

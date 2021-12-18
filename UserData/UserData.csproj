@@ -218,6 +218,7 @@
     <Resource Include="images\female.png" />
     <Resource Include="images\male.png" />
     <Resource Include="images\other.png" />
+    <Resource Include="icons\refreshIcon.png" />
     <Content Include="Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
